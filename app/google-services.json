@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "586329555982",
+    "project_id": "reservesig",
+    "storage_bucket": "reservesig.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586329555982:android:b9f2c1ccd9a5e139dde85f",
+        "android_client_info": {
+          "package_name": "com.example.reservesig_pid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "586329555982-d727rru17j36su9qs4a9ujvi84kupb55.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXsezJ1hmP2nkau29ICRig19mv6BqWmeo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "586329555982-d727rru17j36su9qs4a9ujvi84kupb55.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
