@@ -15,7 +15,7 @@
 
 
         <ImageButton
-            android:id="@+id/BackBtn"
+            android:id="@+id/backBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_arrow_back_24"
@@ -153,7 +153,7 @@
 
             <!-- Enregistre btn -->
             <Button
-                android:id="@+id/loginBtn"
+                android:id="@+id/registerBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cPasswordTil"
