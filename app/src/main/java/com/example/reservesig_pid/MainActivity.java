@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
         //login click, login screen
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,8 +36,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
-
 }

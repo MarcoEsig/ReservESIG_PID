@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="titleEt" type="id" />
+    <item name="titleTil" type="id" />
+    <item name="attachBtn" type="id" />
+    <item name="descriptionEt" type="id" />
+    <item name="descriptionTil" type="id" />
+</resources>

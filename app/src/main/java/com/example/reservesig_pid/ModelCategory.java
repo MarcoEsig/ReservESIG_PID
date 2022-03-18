@@ -2,8 +2,7 @@ package com.example.reservesig_pid;
 
 public class ModelCategory {
 
-    String id,category,uid;
-    long timestamp;
+    String id,category,uid,timestamp;
 
 
     //Constructeur
@@ -12,7 +11,7 @@ public class ModelCategory {
     }
 
     //constructeur paramétré
-    public ModelCategory(String id, String category, String uid, long timestamp) {
+    public ModelCategory(String id, String category, String uid, String timestamp) {
         this.id = id;
         this.category = category;
         this.uid = uid;
@@ -45,11 +44,11 @@ public class ModelCategory {
         this.uid = uid;
     }
 
-    public long getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 }

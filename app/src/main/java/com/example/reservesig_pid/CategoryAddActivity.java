@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public class CategoryAddActivity extends AppCompatActivity {
 
@@ -78,14 +79,15 @@ public class CategoryAddActivity extends AppCompatActivity {
         progressDialog.setMessage("Ajout catégorie..");
         progressDialog.show();
 
-        long timestamp = System.currentTimeMillis();
+        //long timestamp = System.currentTimeMillis();
+        String timestamp = UUID.randomUUID().toString();
 
         //Prend l'id de l'utilisateur
         String uid = firebaseAuth.getUid();
 
         //info pour ajout bdd
         HashMap<String,Object> hashMap = new HashMap<>();
-        hashMap.put("id",+timestamp);
+        hashMap.put("id",timestamp);
         hashMap.put("category",""+category);
         hashMap.put("timestamp",timestamp);
         hashMap.put("uid",""+firebaseAuth.getUid());

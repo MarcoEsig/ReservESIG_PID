@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.reservesig_pid.databinding.ActivityLoginBinding;
-import com.example.reservesig_pid.databinding.ActivityRegisterBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -44,8 +43,6 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Attendez svp");
         progressDialog.setCanceledOnTouchOutside(false);
-
-
 
         //click go to register
         binding.noAccountTv.setOnClickListener(new View.OnClickListener() {
