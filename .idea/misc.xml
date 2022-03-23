@@ -8,13 +8,16 @@
         <entry key="..\:/ReservESIG_pid/app/src/main/res/drawable/form_button02.xml" value="0.38229166666666664" />
         <entry key="..\:/ReservESIG_pid/app/src/main/res/drawable/form_edittext01.xml" value="0.3828125" />
         <entry key="..\:/ReservESIG_pid/app/src/main/res/drawable/form_toolbar01.xml" value="0.3828125" />
+        <entry key="..\:/ReservESIG_pid/app/src/main/res/layout/activity_category_add.xml" value="0.33" />
         <entry key="..\:/ReservESIG_pid/app/src/main/res/layout/activity_dash_board_admin.xml" value="0.29936594202898553" />
         <entry key="..\:/ReservESIG_pid/app/src/main/res/layout/activity_dash_board_user.xml" value="0.29936594202898553" />
         <entry key="..\:/ReservESIG_pid/app/src/main/res/layout/activity_intro.xml" value="0.1" />
         <entry key="..\:/ReservESIG_pid/app/src/main/res/layout/activity_login.xml" value="0.29936594202898553" />
         <entry key="..\:/ReservESIG_pid/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/ReservESIG_pid/app/src/main/res/layout/activity_main2.xml" value="0.29936594202898553" />
+        <entry key="..\:/ReservESIG_pid/app/src/main/res/layout/activity_pdf_list_admin.xml" value="0.21693840579710144" />
         <entry key="..\:/ReservESIG_pid/app/src/main/res/layout/activity_register.xml" value="0.29936594202898553" />
+        <entry key="..\:/ReservESIG_pid/app/src/main/res/layout/row_pdf_admin.xml" value="0.33" />
         <entry key="..\:/ReservESIG_pid/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2" />
         <entry key="..\:/ReservESIG_pid/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2" />
         <entry key="..\:/Users/NeXie/Desktop/ReservESIG_PID/app/src/main/res/drawable/form_button03.xml" value="0.2545" />

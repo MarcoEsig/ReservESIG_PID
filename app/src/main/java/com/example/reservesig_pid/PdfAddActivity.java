@@ -8,15 +8,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.ColorSpace;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.style.UnderlineSpan;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.reservesig_pid.databinding.ActivityPdfAddBinding;
@@ -45,14 +41,13 @@ public class PdfAddActivity extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
 
-    private ArrayList<ModelCategory> categoryArrayList;
+    private ArrayList<String> categoryTitleArrayList,categoryIdArrayList;
 
     private Uri pdfUri = null;
 
     private static final int PDF_PICK_CODE = 1000;
     //debug tag
     private static final String TAG = "ADD_PDF_TAG";
-
 
 
     @Override
@@ -102,7 +97,7 @@ public class PdfAddActivity extends AppCompatActivity {
 
     }
 
-    private String title="",description="",category="";
+    private String title="",description="";
     private void validateData() {
         //validation 1
         Log.d(TAG,"validateData: validating data..");
@@ -111,7 +106,6 @@ public class PdfAddActivity extends AppCompatActivity {
         //prend les données
         title = binding.titleEt.getText().toString().trim();
         description = binding.descriptionEt.getText().toString().trim();
-        category = binding.categoryTv.getText().toString().trim();
 
         if (TextUtils.isEmpty(title)){
             Toast.makeText(this, "Entrez votre titre..", Toast.LENGTH_SHORT).show();
@@ -119,7 +113,7 @@ public class PdfAddActivity extends AppCompatActivity {
         else if (TextUtils.isEmpty(description)){
             Toast.makeText(this, "Entrez la description...", Toast.LENGTH_SHORT).show();
         }
-        else if (TextUtils.isEmpty(category)){
+        else if (TextUtils.isEmpty(selectedCategoryTitle)){
             Toast.makeText(this, "Selectionnez la categorie..", Toast.LENGTH_SHORT).show();
         }
         else if (pdfUri ==null){
@@ -187,7 +181,7 @@ public class PdfAddActivity extends AppCompatActivity {
         hashMap.put("id",""+timestamp);
         hashMap.put("title",""+title);
         hashMap.put("description",""+description);
-        hashMap.put("category",""+category);
+        hashMap.put("categoryId",""+selectedCategoryId);
         hashMap.put("url",""+uploadedPdfUrl);
         hashMap.put("timestamp",timestamp);
 
@@ -212,18 +206,25 @@ public class PdfAddActivity extends AppCompatActivity {
 
     private void loadPdfCategories() {
         Log.d(TAG,"loadPdfCategories: Loading pdf categories");
-        categoryArrayList = new ArrayList<>();
+        categoryTitleArrayList = new ArrayList<>();
+
+        categoryIdArrayList = new ArrayList<>();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Categories");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                categoryArrayList.clear();
+                categoryTitleArrayList.clear();
+                categoryIdArrayList.clear();
                 for (DataSnapshot ds: snapshot.getChildren()){
-                    ModelCategory model = ds.getValue(ModelCategory.class);
-                    categoryArrayList.add(model);
 
-                    Log.d(TAG,"onDataChange: "+ model.getCategory());
+                    //prend l'id et le titre de la catégo
+                    String categoryId = ""+ds.child("id").getValue();
+                    String categoryTitle = ""+ds.child("category").getValue();
+
+                    //Ajout dans les arrays
+                    categoryTitleArrayList.add(categoryTitle);
+                    categoryIdArrayList.add(categoryId);
                 }
             }
 
@@ -235,12 +236,16 @@ public class PdfAddActivity extends AppCompatActivity {
 
     }
 
+    //selection de categorie id et titre catégorie
+
+    private String selectedCategoryId,selectedCategoryTitle;
+
     private void categoryPickDialog() {
         Log.d(TAG,"categoryPickDialog: showing category pick dialog");
 
-        String[] categoriesArray = new String[categoryArrayList.size()];
-        for (int i=0; i< categoryArrayList.size(); i++){
-            categoriesArray[i] = categoryArrayList.get(i).getCategory();
+        String[] categoriesArray = new String[categoryTitleArrayList.size()];
+        for (int i = 0; i< categoryTitleArrayList.size(); i++){
+            categoriesArray[i] = categoryTitleArrayList.get(i);
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -248,10 +253,13 @@ public class PdfAddActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
                 //quand l'item de la liste ce fait cliquer
-                String category = categoriesArray[which];
-                binding.categoryTv.setText(category);
 
-                Log.d(TAG,"onClick: Selected Category: "+category );
+                selectedCategoryTitle = categoryTitleArrayList.get(which);
+                selectedCategoryId = categoryIdArrayList.get(which);
+
+                binding.categoryTv.setText(selectedCategoryTitle);
+
+                Log.d(TAG,"onClick: Selected Category: "+selectedCategoryId+" " + selectedCategoryTitle);
 
             }
         }).show();

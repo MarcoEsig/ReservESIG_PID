@@ -1,8 +1,9 @@
-package com.example.reservesig_pid;
+package com.example.reservesig_pid.adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.reservesig_pid.PdfListAdminActivity;
+import com.example.reservesig_pid.filters.FilterCategory;
+import com.example.reservesig_pid.models.ModelCategory;
 import com.example.reservesig_pid.databinding.RowCategoryBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -80,6 +84,18 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.Holder
                 }).show();
             }
         });
+
+        //item click , go to pdfList Admin , passe aussi category et l'id avec
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PdfListAdminActivity.class);
+                intent.putExtra("categoryId",id);
+                intent.putExtra("categoryTitle",category);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     private void deleteCategory(ModelCategory model, HolderCategory holder){

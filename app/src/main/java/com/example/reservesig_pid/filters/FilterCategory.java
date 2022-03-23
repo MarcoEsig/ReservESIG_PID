@@ -1,11 +1,10 @@
-package com.example.reservesig_pid;
+package com.example.reservesig_pid.filters;
 
-import android.widget.Adapter;
 import android.widget.Filter;
 
-import com.google.android.material.badge.BadgeDrawable;
+import com.example.reservesig_pid.adapters.AdapterCategory;
+import com.example.reservesig_pid.models.ModelCategory;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class FilterCategory extends Filter {

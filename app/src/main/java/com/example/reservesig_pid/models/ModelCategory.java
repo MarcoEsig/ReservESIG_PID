@@ -1,4 +1,4 @@
-package com.example.reservesig_pid;
+package com.example.reservesig_pid.models;
 
 public class ModelCategory {
 
