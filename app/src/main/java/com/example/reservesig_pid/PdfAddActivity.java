@@ -178,7 +178,7 @@ public class PdfAddActivity extends AppCompatActivity {
         //setup data
         HashMap<String,Object> hashMap = new HashMap<>();
         hashMap.put("uid",""+uid);
-        hashMap.put("id",""+timestamp);
+        hashMap.put("id",timestamp);
         hashMap.put("title",""+title);
         hashMap.put("description",""+description);
         hashMap.put("categoryId",""+selectedCategoryId);
@@ -186,7 +186,7 @@ public class PdfAddActivity extends AppCompatActivity {
         hashMap.put("timestamp",timestamp);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Books");
-        ref.child(""+timestamp).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+        ref.child(timestamp).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 progressDialog.dismiss();

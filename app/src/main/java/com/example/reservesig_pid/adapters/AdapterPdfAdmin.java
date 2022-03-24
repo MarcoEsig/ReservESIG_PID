@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.reservesig_pid.MyApplication;
 import com.example.reservesig_pid.databinding.RowPdfAdminBinding;
+import com.example.reservesig_pid.filters.FilterPdfAdmin;
 import com.example.reservesig_pid.models.ModelPdf;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnErrorListener;
@@ -31,21 +34,25 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.FilterReader;
 import java.util.ArrayList;
 
-public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.HolderPdfAdmin> {
+public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.HolderPdfAdmin> implements Filterable {
 
     private Context context;
 
-    private ArrayList<ModelPdf> pdfArrayList;
+    public ArrayList<ModelPdf> pdfArrayList,filterList;
 
     private RowPdfAdminBinding binding;
+
+    private FilterPdfAdmin filter;
 
     private static final String TAG = "PDF_ADAPTER_TAG";
 
     public AdapterPdfAdmin(Context context, ArrayList<ModelPdf> pdfArrayList) {
         this.context = context;
         this.pdfArrayList = pdfArrayList;
+        this.filterList = filterList;
     }
 
     @NonNull
@@ -61,15 +68,15 @@ public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.Holder
         ModelPdf model = pdfArrayList.get(position);
         String title = model.getTitle();
         String description = model.getDescription();
-        long timestamp = model.getTimestamp();
+        String timestamp = model.getTimestamp();
 
         //convertion timestamp
-        String formattedDate = MyApplication.formatTimeStamp(timestamp);
+        //String formattedDate = MyApplication.formatTimeStamp(timestamp);
 
 
         holder.titleTv.setText(title);
         holder.descriptionTv.setText(description);
-        holder.dateTv.setText(formattedDate);
+        //holder.dateTv.setText(formattedDate);
 
         //chargement
         loadCategory(model,holder);
@@ -90,6 +97,7 @@ public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.Holder
             public void onSuccess(StorageMetadata storageMetadata) {
 
                 double bytes = storageMetadata.getSizeBytes();
+                Log.d(TAG, "onSuccess: "+model.getTitle() + ""+bytes);
 
                 double kb = bytes/1024;
                 double mb = kb/1024;
@@ -118,30 +126,42 @@ public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.Holder
 
         String pdfUrl = model.getUrl();
         StorageReference ref = FirebaseStorage.getInstance().getReferenceFromUrl(pdfUrl);
-        ref.getBytes(MAX_BYTES_PDF).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+        ref.getBytes(MAX_BYTES_PDF)
+                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
                 Log.d(TAG,"onSuccess: "+model.getTitle()+ " succesfully got the file");
 
                 //pdf view
-                holder.pdfView.fromBytes(bytes)
+
+                /*holder.pdfView.fromBytes(bytes)
                         .pages(0)
                         .spacing(0)
                         .swiperHorizontal(false)
                         .enableSwipe(false)
                         .onError(new OnErrorListener(){
                             public void onError(Throwable t){
+                                holder.progressBar.setVisibility(View.INVISIBLE);
                                 Log.d(TAG,"onError: "+t.getMessage());
                             }
                         }).onPageError(new OnPageErrorListener(){
                             public void onPageError(int page,Throwable t){
+                                //CACHE
+                                holder.progressBar.setVisibility(View.INVISIBLE);
                                 Log.d(TAG,"onPageError: "+t.getMessage());
                             }
-                }).load();
+                }).onLoad(new OnlLoadCompleteListener(){
+                    public void loadComplete(int nbPages){
+                        holder.progressBar.setVisibility(View.INVISIBLE);
+                        Log.d(TAG, "loadComplete: pdf loaded");
+                    }
+                }).load();*/
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+
+                holder.progressBar.setVisibility(View.INVISIBLE);
                 Log.d(TAG,"onFailure: failed getting file from url due to" + e.getMessage());
 
             }
@@ -173,6 +193,15 @@ public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.Holder
     @Override
     public int getItemCount() {
         return pdfArrayList.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        if (filter == null){
+            filter = new FilterPdfAdmin(filterList,this);
+
+        }
+        return filter;
     }
 
     class HolderPdfAdmin extends RecyclerView.ViewHolder{
