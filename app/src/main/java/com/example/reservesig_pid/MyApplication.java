@@ -29,6 +29,7 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
 
 
@@ -96,8 +97,6 @@ public class MyApplication extends Application {
                 Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     public static void loadPdfSize(String pdfUrl, String pdfTitle, TextView sizeTv) {
@@ -184,7 +183,6 @@ public class MyApplication extends Application {
                 String category = ""+snapshot.child("category").getValue();
                 categoryTv.setText(category);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
