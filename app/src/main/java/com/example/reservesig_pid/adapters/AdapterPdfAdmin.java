@@ -90,14 +90,8 @@ public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.Holder
         holder.descriptionTv.setText(description);
         //holder.dateTv.setText(formattedDate);
 
-        //chargement
-        loadCategory(model,holder);
-        loadPdfFromUrl(model,holder);
-        //loadPdfSize(model,holder);
-
-
-        //MyApplication.loadCategory(""+categoryId, holder.categoryTv);
-        //MyApplication.loadPdfFromUrlSinglePage(""+pdfUrl, ""+title, holder.pdfView, holder.progressBar);
+        MyApplication.loadCategory(""+categoryId, holder.categoryTv);
+        MyApplication.loadPdfFromUrlSinglePage(""+pdfUrl, ""+title, holder.pdfView, holder.progressBar);
         MyApplication.loadPdfSize(""+pdfUrl,""+title,holder.sizeTv);
 
         //montre l'option avec edit et delete
@@ -142,111 +136,6 @@ public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.Holder
                         }
                     }
                 }).show();
-    }
-
-    private void loadPdfSize(ModelPdf model, HolderPdfAdmin holder) {
-
-        //en utilisant l'ûrl on peut prendre le fichier et ces metadata de firebase
-
-        String pdfUrl = model.getUrl();
-
-        StorageReference ref = FirebaseStorage.getInstance().getReferenceFromUrl(pdfUrl);
-        ref.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
-            @Override
-            public void onSuccess(StorageMetadata storageMetadata) {
-
-                double bytes = storageMetadata.getSizeBytes();
-                Log.d(TAG, "onSuccess: "+model.getTitle() + ""+bytes);
-
-                double kb = bytes/1024;
-                double mb = kb/1024;
-
-                if (mb >=1){
-                    holder.sizeTv.setText(String.format("%.2f",mb)+" MB");
-                }
-                else if (kb >=1){
-                    holder.sizeTv.setText(String.format("%.2f",kb)+" KB");
-                }
-                else {
-                    holder.sizeTv.setText(String.format("%.2f",bytes)+" bytes");
-                }
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(context,""+e.getMessage(),Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
-
-    private void loadPdfFromUrl(ModelPdf model, HolderPdfAdmin holder) {
-
-        String pdfUrl = model.getUrl();
-        StorageReference ref = FirebaseStorage.getInstance().getReferenceFromUrl(pdfUrl);
-        ref.getBytes(MAX_BYTES_PDF)
-                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                Log.d(TAG,"onSuccess: "+model.getTitle()+ " succesfully got the file");
-
-                //pdf view
-
-                /*holder.pdfView.fromBytes(bytes)
-                        .pages(0)
-                        .spacing(0)
-                        .swiperHorizontal(false)
-                        .enableSwipe(false)
-                        .onError(new OnErrorListener(){
-                            public void onError(Throwable t){
-                                holder.progressBar.setVisibility(View.INVISIBLE);
-                                Log.d(TAG,"onError: "+t.getMessage());
-                            }
-                        }).onPageError(new OnPageErrorListener(){
-                            public void onPageError(int page,Throwable t){
-                                //CACHE
-                                holder.progressBar.setVisibility(View.INVISIBLE);
-                                Log.d(TAG,"onPageError: "+t.getMessage());
-                            }
-                }).onLoad(new OnlLoadCompleteListener(){
-                    public void loadComplete(int nbPages){
-                        holder.progressBar.setVisibility(View.INVISIBLE);
-                        Log.d(TAG, "loadComplete: pdf loaded");
-                    }
-                }).load();*/
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-                holder.progressBar.setVisibility(View.INVISIBLE);
-                Log.d(TAG,"onFailure: failed getting file from url due to" + e.getMessage());
-
-            }
-        });
-
-    }
-
-    private void loadCategory(ModelPdf model, HolderPdfAdmin holder) {
-        //get catego en utilisant l'id
-
-        String categoryId = model.getCategoryId();
-
-        DatabaseReference ref= FirebaseDatabase.getInstance().getReference("Categories");
-        ref.child(categoryId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String category = ""+snapshot.child("category").getValue();
-
-                holder.categoryTv.setText(category);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
     @Override
