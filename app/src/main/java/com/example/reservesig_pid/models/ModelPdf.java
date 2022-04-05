@@ -3,10 +3,11 @@ package com.example.reservesig_pid.models;
 public class ModelPdf {
     String uid,id,title,description,categoryId,url;
     String timestamp;
+    int viewsCount;
 
     public ModelPdf(){}
 
-    public ModelPdf(String uid, String id, String title, String description, String categoryId, String url, String timestamp) {
+    public ModelPdf(String uid, String id, String title, String description, String categoryId, String url, String timestamp, int viewsCount) {
         this.uid = uid;
         this.id = id;
         this.title = title;
@@ -14,6 +15,7 @@ public class ModelPdf {
         this.categoryId = categoryId;
         this.url = url;
         this.timestamp = timestamp;
+        this.viewsCount = viewsCount;
     }
 
     public String getUid() {
@@ -70,5 +72,13 @@ public class ModelPdf {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public int getViewsCount() {
+        return viewsCount;
+    }
+
+    public void setViewsCount(int viewsCount) {
+        this.viewsCount = viewsCount;
     }
 }

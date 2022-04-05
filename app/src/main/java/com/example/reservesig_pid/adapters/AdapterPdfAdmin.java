@@ -2,7 +2,10 @@ package com.example.reservesig_pid.adapters;
 
 import static com.example.reservesig_pid.Constants.MAX_BYTES_PDF;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +18,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.reservesig_pid.MyApplication;
+import com.example.reservesig_pid.PdfEditActivity;
 import com.example.reservesig_pid.databinding.RowPdfAdminBinding;
 import com.example.reservesig_pid.filters.FilterPdfAdmin;
 import com.example.reservesig_pid.models.ModelPdf;
@@ -49,10 +54,16 @@ public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.Holder
 
     private static final String TAG = "PDF_ADAPTER_TAG";
 
+    private ProgressDialog progressDialog;
+
     public AdapterPdfAdmin(Context context, ArrayList<ModelPdf> pdfArrayList) {
         this.context = context;
         this.pdfArrayList = pdfArrayList;
-        this.filterList = filterList;
+        this.filterList = pdfArrayList;
+
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setTitle("Please wait");
+        progressDialog.setCanceledOnTouchOutside(false);
     }
 
     @NonNull
@@ -83,6 +94,39 @@ public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.Holder
         loadPdfFromUrl(model,holder);
         loadPdfSize(model,holder);
 
+        //montre l'option avec edit et delete
+        holder.moreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                moreOptionsDialog(model,holder);
+            }
+        });
+
+    }
+
+    private void moreOptionsDialog(ModelPdf model, HolderPdfAdmin holder) {
+
+        String bookId = model.getId();
+        String bookUrl = model.getUrl();
+        String bookTitle = model.getTitle();
+
+        String[] options = {"Edit","Delete"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Choose Options")
+                .setItems(options, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        if (which == 0){
+                            //Edit à faire mais compliqué avec PDF
+                            /*Intent intent = new Intent(context, PdfEditActivity.class);
+                            intent.putExtra("bookId",bookId);*/
+                        }
+                        else if (which == 1){
+                            MyApplication.deleteBook(context, ""+bookId, ""+bookUrl, ""+bookTitle);
+                        }
+                    }
+                }).show();
     }
 
     private void loadPdfSize(ModelPdf model, HolderPdfAdmin holder) {
