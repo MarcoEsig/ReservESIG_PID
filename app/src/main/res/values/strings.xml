@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">ReservESIG_pid</string>
     <string name="nouvel_utiliateur_enregistrez_vous">Nouvel utiliateur ?  <b> Enregistrez vous</b></string>
+    <string name="book_details">Book dEtails</string>
+    <string name="title_of_book">Title of Book</string>
+    <string name="category">Category</string>
+    <string name="n_a">N/A</string>
+    <string name="n_a2">N/A</string>
+    <string name="date">Date</string>
+    <string name="size">Size</string>
+    <string name="n_a3">N/A</string>
+    <string name="views">Views</string>
+    <string name="n_a4">N/A</string>
+    <string name="the_description_of_the_book">The description of the book</string>
 </resources>

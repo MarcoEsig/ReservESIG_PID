@@ -22,22 +22,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.reservesig_pid.MyApplication;
+import com.example.reservesig_pid.PdfDetailActivity;
 import com.example.reservesig_pid.PdfEditActivity;
 import com.example.reservesig_pid.databinding.RowPdfAdminBinding;
 import com.example.reservesig_pid.filters.FilterPdfAdmin;
 import com.example.reservesig_pid.models.ModelPdf;
 import com.github.barteksc.pdfviewer.PDFView;
-import com.github.barteksc.pdfviewer.listener.OnErrorListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageMetadata;
-import com.google.firebase.storage.StorageReference;
 
 import java.io.FilterReader;
 import java.util.ArrayList;
@@ -105,9 +95,9 @@ public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.Holder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(context, PdfDetailActivity.class);
-                //intent.putExtra("bookId",pdfId);
-                //context.startActivity(intent);
+                Intent intent = new Intent(context, PdfDetailActivity.class);
+                intent.putExtra("bookId",pdfId);
+                context.startActivity(intent);
             }
         });
 
