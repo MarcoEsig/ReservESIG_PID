@@ -77,13 +77,14 @@ public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.Holder
     public void onBindViewHolder(@NonNull HolderPdfAdmin holder, int position) {
 
         ModelPdf model = pdfArrayList.get(position);
+        String pdfId = model.getId();
+        String categoryId = model.getCategoryId();
         String title = model.getTitle();
         String description = model.getDescription();
-        String timestamp = model.getTimestamp();
-
+        String pdfUrl = model.getUrl();
+        //String timestamp = model.getTimestamp();
         //convertion timestamp
         //String formattedDate = MyApplication.formatTimeStamp(timestamp);
-
 
         holder.titleTv.setText(title);
         holder.descriptionTv.setText(description);
@@ -92,13 +93,27 @@ public class AdapterPdfAdmin extends RecyclerView.Adapter<AdapterPdfAdmin.Holder
         //chargement
         loadCategory(model,holder);
         loadPdfFromUrl(model,holder);
-        loadPdfSize(model,holder);
+        //loadPdfSize(model,holder);
+
+
+        //MyApplication.loadCategory(""+categoryId, holder.categoryTv);
+        //MyApplication.loadPdfFromUrlSinglePage(""+pdfUrl, ""+title, holder.pdfView, holder.progressBar);
+        MyApplication.loadPdfSize(""+pdfUrl,""+title,holder.sizeTv);
 
         //montre l'option avec edit et delete
         holder.moreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 moreOptionsDialog(model,holder);
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Intent intent = new Intent(context, PdfDetailActivity.class);
+                //intent.putExtra("bookId",pdfId);
+                //context.startActivity(intent);
             }
         });
 

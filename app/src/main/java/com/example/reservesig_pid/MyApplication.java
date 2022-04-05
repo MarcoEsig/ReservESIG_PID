@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.Calendar;
@@ -88,4 +90,37 @@ public class MyApplication extends Application {
 
     }
 
+    public static void loadPdfSize(String pdfUrl, String pdfTitle, TextView sizeTv) {
+        String TAG = "PDF_SIZE_TAG";
+
+        //en utilisant l'ûrl on peut prendre le fichier et ces metadata de firebase
+
+        StorageReference ref = FirebaseStorage.getInstance().getReferenceFromUrl(pdfUrl);
+        ref.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
+            @Override
+            public void onSuccess(StorageMetadata storageMetadata) {
+
+                double bytes = storageMetadata.getSizeBytes();
+                Log.d(TAG, "onSuccess: "+pdfTitle + ""+bytes);
+
+                double kb = bytes/1024;
+                double mb = kb/1024;
+
+                if (mb >=1){
+                    sizeTv.setText(String.format("%.2f",mb)+" MB");
+                }
+                else if (kb >=1){
+                    sizeTv.setText(String.format("%.2f",kb)+" KB");
+                }
+                else {
+                    sizeTv.setText(String.format("%.2f",bytes)+" bytes");
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG,"onFailure: "+ e.getMessage());
+            }
+        });
+    }
 }
