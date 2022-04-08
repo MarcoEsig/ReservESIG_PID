@@ -22,6 +22,9 @@
         <entry key="..\:/ReservESIG_pid/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2" />
         <entry key="..\:/Users/NeXie/Desktop/ReservESIG_PID/app/src/main/res/drawable/form_button03.xml" value="0.2545" />
         <entry key="..\:/Users/NeXie/Desktop/ReservESIG_PID/app/src/main/res/drawable/form_toolbar02.xml" value="0.279" />
+        <entry key="..\:/Users/NeXie/Desktop/ReservESIG_PID/app/src/main/res/drawable/tab_background_selected.xml" value="0.321" />
+        <entry key="..\:/Users/NeXie/Desktop/ReservESIG_PID/app/src/main/res/drawable/tab_background_unselected.xml" value="0.321" />
+        <entry key="..\:/Users/NeXie/Desktop/ReservESIG_PID/app/src/main/res/drawable/tab_selector.xml" value="0.321" />
         <entry key="..\:/Users/NeXie/Desktop/ReservESIG_PID/app/src/main/res/layout/activity_category_add.xml" value="0.31145833333333334" />
         <entry key="..\:/Users/NeXie/Desktop/ReservESIG_PID/app/src/main/res/layout/activity_dash_board_admin.xml" value="0.1" />
         <entry key="..\:/Users/NeXie/Desktop/ReservESIG_PID/app/src/main/res/layout/activity_dash_board_user.xml" value="0.27447916666666666" />
@@ -33,8 +36,10 @@
         <entry key="..\:/Users/NeXie/Desktop/ReservESIG_PID/app/src/main/res/layout/activity_pdf_edit.xml" value="0.3625" />
         <entry key="..\:/Users/NeXie/Desktop/ReservESIG_PID/app/src/main/res/layout/activity_pdf_list_admin.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/NeXie/Desktop/ReservESIG_PID/app/src/main/res/layout/activity_register.xml" value="0.2558876811594203" />
+        <entry key="..\:/Users/NeXie/Desktop/ReservESIG_PID/app/src/main/res/layout/fragment_books_user.xml" value="0.15601023017902813" />
         <entry key="..\:/Users/NeXie/Desktop/ReservESIG_PID/app/src/main/res/layout/row_category.xml" value="0.3625" />
         <entry key="..\:/Users/NeXie/Desktop/ReservESIG_PID/app/src/main/res/layout/row_pdf_admin.xml" value="0.25" />
+        <entry key="..\:/Users/NeXie/Desktop/ReservESIG_PID/app/src/main/res/layout/row_pdf_user.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

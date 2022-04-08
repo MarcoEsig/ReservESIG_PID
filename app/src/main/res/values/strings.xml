@@ -12,4 +12,6 @@
     <string name="views">Views</string>
     <string name="n_a4">N/A</string>
     <string name="the_description_of_the_book">The description of the book</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
